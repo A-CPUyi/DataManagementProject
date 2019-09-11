@@ -21,12 +21,16 @@ alter table import_test disable keys;
 load data infile "F:\\rawDataSet\\test.json" into table json_temp(jsonData);
 
 #parse json into column (performence could be imporve here with single select)
-update import_test set
-	id = (select jsonData->'$.id' from json_temp),
-    Str = (select jsonData->'$.name' from json_temp);
+-- update import_test set
+--	  import_test.id = (select jsonData->'$.id' from json_temp),
+--    import_test.Str = (select jsonData->'$.name' from json_temp);
+
+insert into import_test (id, Str)
+select jsonData->'$.id' , jsonData->'$.name' 
+from json_temp;
 
 #drop origin json table
-#drop table json_temp; 
+drop table json_temp; 
 ALTER TABLE import_test ENABLE KEYS;
 SET UNIQUE_CHECKS = 1;
 SET FOREIGN_KEY_CHECKS = 1;
