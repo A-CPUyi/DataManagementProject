@@ -44,7 +44,7 @@ insert into Business (id, business_name, Address, City, State, postal_code,
 
 
 #drop origin json table
-#drop table json_temp;
+drop table json_temp;
 ALTER TABLE Business ENABLE KEYS;
 SET UNIQUE_CHECKS = 1;
 SET FOREIGN_KEY_CHECKS = 1;
