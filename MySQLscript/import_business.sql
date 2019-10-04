@@ -26,19 +26,19 @@ create table if not exists Business(
     postal_code varchar(20),
     latitude float,
     longitude float,
-    stars float,
     categories varchar(600),
+    attributes json,
     primary key (id)
 );
 alter table Business disable keys;
 
 #parse json into column
 insert into Business (id, business_name, Address, City, State, postal_code,
-	latitude, longitude, stars, categories)
+	latitude, longitude, stars, categories, attributes)
 	select replace(jsonData->'$.business_id', '"',''), replace(jsonData->'$.name', '"',''), jsonData->'$.address',
 		jsonData->'$.city', jsonData->'$.state', jsonData->'$.postal_code',
-		jsonData->'$.latitude', jsonData->'$.longitude', jsonData->'$.stars',
-        replace(jsonData->'$.categories','"','')
+		jsonData->'$.latitude', jsonData->'$.longitude', 
+        replace(jsonData->'$.categories','"',''), jsonData->'$.attributes'
 	from json_temp;
     
 
