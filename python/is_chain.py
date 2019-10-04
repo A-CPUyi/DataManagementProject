@@ -1,12 +1,12 @@
 import mysql.connector
 import time
 
-UPDATE_STATEMENT = 'UPDATE business SET is_chain=1 WHERE business_name in (%s)'
+UPDATE_STATEMENT = 'UPDATE business_chain SET is_chain=1 WHERE business_name in (%s)'
 
 def update_chains(cursor):
     cursor.execute('USE project1_main')
     cursor.execute('SET autocommit = 0')
-    cursor.execute('SELECT business_name from business group by business_name having count(DISTINCT Address, postal_code) > 1')
+    cursor.execute('SELECT business_name from business b join business_location l on b.id = l.id group by business_name having count(DISTINCT l.Address, l.postal_code) > 1')
 
     list = [row[0] for row in cursor]
 
