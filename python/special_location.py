@@ -10,7 +10,7 @@ SPECIAL_LOCATIONS = [
 ]
 INSERT_STATEMENT = '''INSERT INTO located_in
 (SELECT b.id, l.id, '{}' FROM (SELECT business.id, business_location.address, business_location.postal_code from business join business_location on business.id = business_location.id) b,
-  (SELECT b.id, bl.Address, bl.postal_code, business_name from business b join business_location bl WHERE bl.Address <> "\\"\\"" AND business_name LIKE '%{}%' AND categories LIKE '%{}%') l
+  (SELECT b.id, bl.Address, bl.postal_code, business_name from business b join business_location bl on b.id = bl.id WHERE bl.Address <> "\\"\\"" AND business_name LIKE '%{}%' AND categories LIKE '%{}%') l
   WHERE b.id <> l.id AND b.address = l.address AND b.postal_code = l.postal_code)'''
 
 
@@ -43,7 +43,7 @@ limit = 1000
 conn = mysql.connector.connect(host='68.180.87.215',
                                database='project1_main',
                                user='jss7268',
-                               password='Iceemrr8')
+                               password='')
 cursor = conn.cursor()
 start = time.time()
 

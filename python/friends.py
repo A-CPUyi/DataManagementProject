@@ -64,7 +64,7 @@ limit = 100000
 conn = mysql.connector.connect(host='68.180.87.215',
                                          database='project1_main',
                                          user='jss7268',
-                                         password='Iceemrr8')
+                                         password='')
 cursor = conn.cursor()
 start = time.time()
 

@@ -109,7 +109,7 @@ def update_weak(cursor, select_table, insert_table, attribute):
 conn = mysql.connector.connect(host='68.180.87.215',
                                          database='project1_main',
                                          user='jss7268',
-                                         password='Iceemrr8')
+                                         password='')
 cursor = conn.cursor()
 start = time.time()
 
