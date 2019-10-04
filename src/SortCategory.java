@@ -4,11 +4,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.Map.Entry;
 
 /**
@@ -30,9 +28,11 @@ public class Main {
             connect = DriverManager.getConnection(String.format("jdbc:mysql://%s:%s/", hostIP, port), userName,
                     password);
             if (!connect.isClosed()) {
-                connect.setSchema("project1_main");
+
+                //setSchema dose not work, use this
+                connect.setCatalog("project1_main");
                 java.sql.Statement stmt = connect.createStatement();
-                ResultSet res = stmt.executeQuery("Select * from project1_main.business");
+                ResultSet res = stmt.executeQuery("Select * from business");
 
                 HashMap<String, Integer> attrbute_count_map = new HashMap<>();
                 // todo: print results
