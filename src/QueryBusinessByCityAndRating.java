@@ -1,4 +1,7 @@
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * QueryBusinessByCityAndRating
@@ -9,6 +12,8 @@ public class QueryBusinessByCityAndRating extends Query {
     String queryStmt = "select business_name, rating from (" + "SELECT business_name, AVG(review.stars) as rating "
             + "FROM project1_main.review, project1_main.business" + "where business.id = review.business_id and "
             + "business.City = ?) temp" + "where rating > ?";
+
+    String resultColumnNames[] = {"business_name", "rating"};
 
     public QueryBusinessByCityAndRating() {
         String options[] = { "查询类别-business", "查询分类-city", "optionLevel2-rating > " };
@@ -28,10 +33,22 @@ public class QueryBusinessByCityAndRating extends Query {
         try {
             stmt.setString(1, "\"" + inputs[0] + "\"");
             stmt.setFloat(2, Float.parseFloat(inputs[1]));
-            stmt.executeQuery();
+            List<String[]>result = processResultSet(stmt.executeQuery());
+            Display.getDisplay().displayResuls(resultColumnNames, result);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    private List<String[]> processResultSet(ResultSet rawResults) throws SQLException { 
+        List<String[]> rows = new ArrayList<String[]>();
+        while(rawResults.next()){
+            String tempRow[] = new String[resultColumnNames.length];
+            tempRow[0] = rawResults.getString(resultColumnNames[0]);
+            tempRow[1] = "" + rawResults.getFloat(resultColumnNames[1]);//float to string
+            rows.add(tempRow);
+        }
+        return rows;
     }
 }

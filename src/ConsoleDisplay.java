@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * ConsoleDisplay
  */
@@ -6,7 +8,7 @@ public class ConsoleDisplay extends Display{
 
     @Override
     public void init() {
-        this.display = this;
+        Display.display = this;
     }
 
     @Override
@@ -17,16 +19,18 @@ public class ConsoleDisplay extends Display{
     }
 
     @Override
-    public void displayResuls(String[] columnNames, String[][] contents) {
+    public void displayResuls(String[] columnNames, List<String[]> contents) {
         for(String s : columnNames){
             System.out.print(s + "  ");
         }
         System.out.println();
 
         //换行开始输出内容
-        for(int i=0;i<contents.length;i++){
-            for(String s : contents[i])
-                System.out.print(s + " ");
-        }
+        contents.forEach( (row) -> {
+            String tempLine = "";
+            for(String s : row)
+                tempLine += s + " ";
+            System.out.println(tempLine);
+        });
     }
 }
