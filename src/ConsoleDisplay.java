@@ -34,20 +34,16 @@ public class ConsoleDisplay extends Display {
             if(input.hasNext()){
                 int index = Integer.parseInt(input.nextLine());
                 if(index == 0){
-                    String inputArgs[] = new String[tree.getCurrent()
-                        .query.get().userInputTitles.length];
-                    for(int i=0;i<inputArgs.length;i++){
-                        System.out.print(tree.getCurrent().query.get().userInputTitles[i]);
-                        inputArgs[i] = input.nextLine();
-                    }
-                    tree.getCurrent().executeUserInput(inputArgs);
-
                     //TODO start new search
-                    excuteFlag = true;
+                    excuteFlag = runQuery(input, tree);
                 }
                 else{
                     try {
                         tree.getCurrent().moveToNext(options[index - 1]);
+                        //the leaf node has only query but nothing else
+                        if(tree.getCurrent().optionTitle == null){
+                            runQuery(input, tree);
+                        }
                     } catch (Exception e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -57,6 +53,17 @@ public class ConsoleDisplay extends Display {
 
         }
         input.close();
+    }
+
+    private boolean runQuery(Scanner input, OptionTree tree){
+        String inputArgs[] = new String[tree.getCurrent()
+            .query.get().userInputTitles.length];
+        for(int i=0;i<inputArgs.length;i++){
+            System.out.print(tree.getCurrent().query.get().userInputTitles[i]);
+            inputArgs[i] = input.nextLine();
+        }
+        tree.getCurrent().executeUserInput(inputArgs);
+        return true;
     }
 
     @Override

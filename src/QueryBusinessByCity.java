@@ -13,7 +13,7 @@ public class QueryBusinessByCity extends Query {
             + " from project1_main.business"
             + " where business.City = ? group by business.business_name;";
 
-    String resultColumnNames[] = {"business_name", "rating"};
+    String resultColumnNames[] = {"business_name"};
 
     /**
      * !!!important: init the query statement with a prepareStatement class to prevent injection attack
@@ -35,7 +35,6 @@ public class QueryBusinessByCity extends Query {
     public void acceptUserInput(String[] inputs) {
         try {
             stmt.setString(1,  inputs[0]);
-            stmt.setFloat(2, Float.parseFloat(inputs[1]));
             List<String[]>result = processResultSet(stmt.executeQuery());
             Display.getDisplay().displayResuls(resultColumnNames, result);
         } catch (SQLException e) {
@@ -49,7 +48,6 @@ public class QueryBusinessByCity extends Query {
         while(rawResults.next()){
             String tempRow[] = new String[resultColumnNames.length];
             tempRow[0] = rawResults.getString(resultColumnNames[0]);
-            tempRow[1] = "" + rawResults.getFloat(resultColumnNames[1]);//float to string
             rows.add(tempRow);
         }
         return rows;
