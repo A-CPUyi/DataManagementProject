@@ -21,10 +21,11 @@ public class MyDbUserInterface {
 
         init();
 
+        Display.getDisplay().displayInterface();
         if (!dB_connection.isClosed()) {
             //ask for input business
             Query test = new QueryBusinessByCityAndRating();
-            String testInpunt[] = {"New York", "3.0"};
+            String testInpunt[] = {"Toronto", "3.0"};
             test.acceptUserInput(testInpunt);
         }
     }

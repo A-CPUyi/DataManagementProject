@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * QueryBusinessByCityAndRating
+ * QueryBusinessByCity
  */
-public class QueryBusinessByCityAndRating extends Query {
+public class QueryBusinessByCity extends Query {
 
     // java dose not support multi-line string?
-    String queryStmt = "select business_name, rating from (" + " SELECT business_name, AVG(review.stars) as rating"
-            + " FROM project1_main.review, project1_main.business" + " where business.id = review.business_id and"
-            + " business.City = ? group by business.business_name) as temp" + " where rating > ? ;";
+    String queryStmt = "SELECT business_name, City"
+            + " from project1_main.business"
+            + " where business.City = ? group by business.business_name;";
 
     String resultColumnNames[] = {"business_name", "rating"};
 
     /**
      * !!!important: init the query statement with a prepareStatement class to prevent injection attack
      */
-    public QueryBusinessByCityAndRating() {
-        String options[] = { "查询类别-business", "查询分类-city", "optionLevel2-rating > " };
+    public QueryBusinessByCity() {
+        String options[] = { "查询类别-business", "查询分类-city" };
         this.options = options;
-        String inputTiles[] = { "城市 = ", "评分 > " };
+        String inputTiles[] = { "城市 = " };
         this.userInputTitles = inputTiles;
         try {
             this.stmt = Utility.getConnection().prepareStatement(queryStmt);
