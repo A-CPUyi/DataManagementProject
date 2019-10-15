@@ -1,8 +1,5 @@
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Main
@@ -26,18 +23,9 @@ public class MyDbUserInterface {
 
         if (!dB_connection.isClosed()) {
             //ask for input business
-
-            //query
-            java.sql.Statement stmt = dB_connection.createStatement();
-            ResultSet res = stmt.executeQuery("Select * from business limit 100");
-
-            // todo: display results
-            List<String> names = new ArrayList<>();
-            while (res.next()) {
-                String b_name = res.getString("business_name");
-                names.add(b_name);
-            }
-            System.out.println(names);
+            Query test = new QueryBusinessByCityAndRating();
+            String testInpunt[] = {"New York", "3.0"};
+            test.acceptUserInput(testInpunt);
         }
     }
 }

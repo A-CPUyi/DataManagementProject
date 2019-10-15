@@ -29,7 +29,7 @@ public class ConsoleDisplay extends Display{
         contents.forEach( (row) -> {
             String tempLine = "";
             for(String s : row)
-                tempLine += s + " ";
+                tempLine += s + " | ";
             System.out.println(tempLine);
         });
     }
