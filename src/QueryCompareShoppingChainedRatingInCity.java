@@ -4,22 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * QueryBusinessByCity
+ * QueryCompareShoppingChainedRatingInCity
  */
-public class QueryBusinessByCity extends Query {
+public class QueryCompareShoppingChainedRatingInCity extends Query {
 
     // java dose not support multi-line string?
-    String queryStmt = "SELECT business_name, City"
-            + " from project1_main.business"
-            + " where business_location.City = ? group by business.business_name;";
+    String queryStmt = "select business_chain.is_chain, avg(review.stars)" +
+    " from business_location, shopping, business, business_chain, review" +
+    " where business_location.city = ? " +
+    " and shopping.id = business_location.id" +
+    " and shopping.id = business.id" +
+    " and business.business_name = business_chain.business_name" +
+    " and business_location.id = review.business_id" +
+    " group by business_chain.is_chain";
 
-    String resultColumnNames[] = {"business_name"};
+    String resultColumnNames[] = {"is_chained", "avg_rating"};
 
     /**
      * !!!important: init the query statement with a prepareStatement class to prevent injection attack
      */
-    public QueryBusinessByCity() {
-        String options[] = { "查询类别-business", "查询分类-city" };
+    public QueryCompareShoppingChainedRatingInCity() {
+        String options[] = { "查询类别-Compare Review", "比较类别-Chained", "经营类别-Shopping", "比较区域-城市" };
         this.options = options;
         String inputTiles[] = { "城市 = " };
         this.userInputTitles = inputTiles;
@@ -47,7 +52,8 @@ public class QueryBusinessByCity extends Query {
         List<String[]> rows = new ArrayList<String[]>();
         while(rawResults.next()){
             String tempRow[] = new String[resultColumnNames.length];
-            tempRow[0] = rawResults.getString(resultColumnNames[0]);
+            tempRow[0] = "" + rawResults.getBoolean(resultColumnNames[0]);
+            tempRow[1] = "" + rawResults.getFloat(resultColumnNames[1]);//float to string
             rows.add(tempRow);
         }
         return rows;

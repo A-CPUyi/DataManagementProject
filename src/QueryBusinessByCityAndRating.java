@@ -11,7 +11,7 @@ public class QueryBusinessByCityAndRating extends Query {
     // java dose not support multi-line string?
     String queryStmt = "select business_name, rating from (" + " SELECT business_name, AVG(review.stars) as rating"
             + " FROM project1_main.review, project1_main.business" + " where business.id = review.business_id and"
-            + " business.City = ? group by business.business_name) as temp" + " where rating > ? ;";
+            + " business_location.City = ? group by business.business_name) as temp" + " where rating > ? ;";
 
     String resultColumnNames[] = {"business_name", "rating"};
 
