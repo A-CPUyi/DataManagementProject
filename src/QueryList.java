@@ -7,6 +7,7 @@ public class QueryList {
         new QueryBusinessByCity(),
 
         /**Shuo Yao */
+        new Query1(),
         new Query2a(),
         new Query2b(),
         new Query2c(),
