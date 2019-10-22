@@ -9,16 +9,26 @@ import java.util.List;
 public class Query2c extends Query {
 
     // java dose not support multi-line string?
-    String queryStmt = "SELECT S.business_name FROM" 
-    		+ " project1_main.business S, project1_main.beauty G, project1_main.business_location L,"
-            + " (select R1.business_id,COUNT(*) AS reviewNo from project1_main.review R1 group by R1.business_id) AS A, "
-            + " (select R2.business_id,COUNT(*) AS reviewNo2 from project1_main.review R2 WHERE R2.stars > 3 group by R2.business_id) AS B"
-            + " where S.id = G.id"
-            + " and L.postal_code = ?"
-            + " and S.id = L.id"
-            + " and A.business_id = S.id"
-            + " and A.business_id = B.business_id"
-            + " AND B.reviewNo2/A.reviewNo > 0.5;";
+    String queryStmt =  "select business.business_name, goodReview.count, badReview.count from business," 
+    		+ " (select review.business_id b_id, count(review.business_id) count from review,"
+            + "  (select business_location.id as b_id"
+            + " from business_location, beauty"
+            + " where business_location.postal_code = ?"
+            + " and business_location.id = beauty.id) as temp1"
+            + " where review.business_id = temp1.b_id"
+            + " and review.stars > 3.0"
+            + " group by review.business_id) as goodReview,"
+            + " (select review.business_id b_id, count(review.business_id) count from review, "
+            + " (select business_location.id as b_id"
+            + " from business_location, beauty"
+            + " where business_location.postal_code = ?"
+            + " and business_location.id = beauty.id) as temp1"
+            + " where review.business_id = temp1.b_id"
+            + " and review.stars <= 3.0"
+            + " group by review.business_id) as badReview"
+            + " where goodReview.b_id = badReview.b_id"
+            + " and (goodReview.count - badReview.count) > 0"
+            + " and business.id = goodReview.b_id;";
 
     String resultColumnNames[] = {"business_name"};
 
@@ -42,6 +52,7 @@ public class Query2c extends Query {
     public void acceptUserInput(String[] inputs) {
         try {
             stmt.setString(1,  inputs[0]);
+            stmt.setString(2,  inputs[0]);
             List<String[]>result = processResultSet(stmt.executeQuery());
             Display.getDisplay().displayResuls(resultColumnNames, result);
         } catch (SQLException e) {
