@@ -42,6 +42,7 @@ public class Query2a extends Query {
     public void acceptUserInput(String[] inputs) {
         try {
             stmt.setString(1,  inputs[0]);
+            stmt.setString(2, inputs[0]);
             List<String[]>result = processResultSet(stmt.executeQuery());
             Display.getDisplay().displayResuls(resultColumnNames, result);
         } catch (SQLException e) {

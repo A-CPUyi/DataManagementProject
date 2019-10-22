@@ -52,8 +52,8 @@ public class QueryCompareBeautyChainedRatingInCity extends Query {
         List<String[]> rows = new ArrayList<String[]>();
         while(rawResults.next()){
             String tempRow[] = new String[resultColumnNames.length];
-            tempRow[0] = "" + rawResults.getBoolean(resultColumnNames[0]);
-            tempRow[1] = "" + rawResults.getFloat(resultColumnNames[1]);//float to string
+            tempRow[0] = "" + rawResults.getBoolean(1);
+            tempRow[1] = "" + rawResults.getFloat(2);//float to string
             rows.add(tempRow);
         }
         return rows;
