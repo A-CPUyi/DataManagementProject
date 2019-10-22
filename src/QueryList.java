@@ -6,6 +6,11 @@ public class QueryList {
         new QueryBusinessByCityAndRating(),
         new QueryBusinessByCity(),
 
+        /**Shuo Yao */
+        new Query2a(),
+        new Query2b(),
+        new Query2c(),
+
         /**don't change it automatically generated code */
         new QueryUserNameReviewedFoodInAirport(),
         new QueryUserNameReviewedFoodInTrainStation(),
