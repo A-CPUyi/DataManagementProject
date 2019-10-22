@@ -26,7 +26,7 @@ public class ConsoleDisplay extends Display {
             String options[] = new String[tree.getCurrent().child.keySet().size()];
             options = tree.getCurrent().child.keySet().toArray(options);
             for (int i = 1; i <= options.length; i++) {
-                System.out.print("" + i + '.' + options[i - 1]);
+                System.out.print("" + i + '.' + options[i - 1] + " ");
             }
             System.out.println();
 
@@ -42,7 +42,7 @@ public class ConsoleDisplay extends Display {
                         tree.getCurrent().moveToNext(options[index - 1]);
                         //the leaf node has only query but nothing else
                         if(tree.getCurrent().optionTitle == null){
-                            runQuery(input, tree);
+                            excuteFlag = runQuery(input, tree);
                         }
                     } catch (Exception e) {
                         // TODO Auto-generated catch block
