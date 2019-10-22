@@ -48,7 +48,8 @@ public class GUI {
         newOptions[0] = "";
         int i = 1;
         for(String option : options){
-            newOptions[i] = option;
+            //bug 1
+            newOptions[i++] = option;
         }
         QueryPanel first = new QueryPanel(optionTitle, newOptions, 0);
         queryPanelList.add(first);
