@@ -8,6 +8,9 @@ public class QueryList {
         new Query2a(),
         new Query2b(),
         new Query2c(),
+        new Query3a(),
+        new Query3b(),
+        new Query3c(),
 
         //4
         new QueryHigherRatedRestaurantsAmongFriends(),
