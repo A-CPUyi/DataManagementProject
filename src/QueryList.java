@@ -14,6 +14,9 @@ public class QueryList {
 
         //4
         new QueryHigherRatedRestaurantsAmongFriends(),
+        //6
+        new QueryUserPreferFoodOverShopping(),
+        new QueryUserPreferShoppingOverFood(),
         
         /**don't change it automatically generated code */
         //7
