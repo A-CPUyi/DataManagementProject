@@ -24,7 +24,7 @@ public class GUI {
     String[] columnName;
 
 
-    private JTextArea textarea = new JTextArea(5, 5);
+    // private JTextArea textarea = new JTextArea(5, 5);
     private JTable table;
     private Vector<Vector<String>> dataModel = new Vector<Vector<String>>();
     JPanel controlPanel = new JPanel();
@@ -54,7 +54,7 @@ public class GUI {
         QueryPanel first = new QueryPanel(optionTitle, newOptions, 0);
         queryPanelList.add(first);
         controlPanel.add(first);
-        controlPanel.setPreferredSize(new Dimension(0, 130));
+        controlPanel.setPreferredSize(new Dimension(0, 143));
 
         tablePanel = new JPanel();
         tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
@@ -65,7 +65,7 @@ public class GUI {
 
         JPanel container = new JPanel();
         container.setLayout(new BorderLayout());
-        container.add(textarea, BorderLayout.NORTH);
+        // container.add(textarea, BorderLayout.NORTH);
         container.add(tablePanel, BorderLayout.CENTER);
 
         frame.add(controlPanel, BorderLayout.NORTH);
