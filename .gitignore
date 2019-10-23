@@ -1,3 +1,6 @@
 /bin
 /.vscode
 /.exe
+
+*.class
+python/simple_limiter.py
