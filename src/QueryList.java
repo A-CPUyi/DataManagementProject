@@ -11,7 +11,8 @@ public class QueryList {
         new Query3a(),
         new Query3b(),
         new Query3c(),
-
+        new Query5(),
+        
         //4
         new QueryHigherRatedRestaurantsAmongFriends(),
         //6
