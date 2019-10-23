@@ -1,44 +1,42 @@
 import mysql.connector
-import csv
-import os
 import time
 
-INSERT_STATEMENT = "INSERT INTO friends_with VALUES(%s, %s)"
+INSERT_FRIENDS = "INSERT INTO friends_with VALUES(%s, %s)"
+INSERT_CHECKIN = "INSERT INTO business_checkin VALUES (%s, %s, %s)"
+FRIENDS_SELECT = 'SELECT user_id, friends_list_str FROM user LIMIT {}, {}'
+CHECKIN_SELECT = "SELECT business_id, dates FROM checkin LIMIT {}, {}"
 
-def select_and_insert(cursor, csv_file, limit, offset):
+def select_and_insert(cursor, limit, offset, type):
     cursor.execute('USE project1_main')
     cursor.execute('SET autocommit = 0')
-    cursor.execute('SELECT user_id, friends_list_str FROM user LIMIT {}, {}'.format(offset, limit))
+    if type == "friends":
+        select_statement = FRIENDS_SELECT
+        insert_statement = INSERT_FRIENDS
+    else:
+        select_statement = CHECKIN_SELECT
+        insert_statement = INSERT_CHECKIN
 
-    i = 0
+    cursor.execute(select_statement.format(offset, limit))
+
     list = []
-    for row in cursor:
-        append_list(list, row[0], row[1])
+    if type == "friends":
+        for row in cursor:
+            append_list(list, row[0], row[1])
+    else:
+        set = dict()
+        for row in cursor:
+            set[row[0]] = dict()
+            for date in row[1].split(', '):
+                set[row[0]][date] = set[row[0]].get(date, 0) + 1
+
+        for id, dates in set.items():
+            for date, num in dates.items():
+                list.append((id, date, num))
 
     try:
-        cursor.executemany(INSERT_STATEMENT, list)
+        cursor.executemany(insert_statement, list)
     except mysql.connector.errors.IntegrityError as e:
         print(e)
-
-
-    # if os.path.exists(csv_file):
-    #     os.remove(csv_file)
-    # with open(csv_file, "w") as f:
-    #     for row in cursor:
-    #         create_csv(f, row[0], row[1])
-    #         i += 1
-    #
-    #
-    #
-    # with open(csv_file, "r") as f:
-    #     execute_statements(cursor, f, INSERT_STATEMENT)
-
-def create_csv(f, user_id, friends_list_str):
-    if friends_list_str == 'None' or friends_list_str == None:
-        return
-    for friend_id in friends_list_str.split(', '):
-        if user_id < friend_id:
-                f.write("{},{}\n".format(user_id, friend_id))
 
 def append_list(list, user_id, friends_list_str):
     if friends_list_str == 'None' or friends_list_str == None:
@@ -48,19 +46,7 @@ def append_list(list, user_id, friends_list_str):
                 list.append((user_id, friend_id))
 
 
-def execute_statements(cursor, f, statement):
-    start = time.time()
-    try:
-        cursor.executemany(statement, [tuple(row.split(',')) for row in f])
-    except mysql.connector.errors.IntegrityError as e:
-        print(e)
-
-
-    end = time.time()
-    print(end - start)
-
-
-limit = 100000
+limit = 5000
 conn = mysql.connector.connect(host='68.180.87.215',
                                          database='project1_main',
                                          user='jss7268',
@@ -70,11 +56,11 @@ start = time.time()
 
 try:
 
-    for offset in range(953100, 1800000, limit):
+    for offset in range(3000, 162000, limit):
         print('starting, offset={}'.format(offset))
         start = time.time()
 
-        select_and_insert(cursor, 'friends_with.csv', limit, offset)
+        select_and_insert(cursor, limit, offset, 'checkin') # or friends
         conn.commit()
 
         end = time.time()
