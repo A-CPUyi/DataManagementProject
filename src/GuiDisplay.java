@@ -78,7 +78,8 @@ public class GuiDisplay extends Display {
         newOptions[0] = "";
         int i = 1;
         for(String str : options){
-            newOptions[i] = str;
+            //bug 3
+            newOptions[i++] = str;
         }
         return new QueryPanel(optionTitle, newOptions, 0);
     }

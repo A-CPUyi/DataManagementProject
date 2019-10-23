@@ -48,7 +48,7 @@ public class OptionTree {
 
     OptionTree(){
         root = new OptionTreeNode();
-        root.optionTitle = "查询类别";
+        root.optionTitle = null;
         current = root;
         for(Query q : QueryList.queryList){
             buildBranch(q);

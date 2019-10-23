@@ -19,7 +19,7 @@ public class QueryBusinessByCity extends Query {
      * !!!important: init the query statement with a prepareStatement class to prevent injection attack
      */
     public QueryBusinessByCity() {
-        String options[] = { "查询类别-business", "查询分类-city" };
+        String options[] = { "SearchCategory-business", "查询分类-city" };
         this.options = options;
         String inputTiles[] = { "城市 = " };
         this.userInputTitles = inputTiles;

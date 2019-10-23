@@ -24,7 +24,7 @@ public class QueryCompareFoodChainedRatingInCity extends Query {
      * !!!important: init the query statement with a prepareStatement class to prevent injection attack
      */
     public QueryCompareFoodChainedRatingInCity() {
-        String options[] = { "查询类别-Compare Review", "比较类别-Chained", "经营类别-Food", "比较区域-城市" };
+        String options[] = { "SearchCategory-Compare Review", "比较类别-Chained", "经营类别-Food", "比较区域-城市" };
         this.options = options;
         String inputTiles[] = { "城市 = " };
         this.userInputTitles = inputTiles;

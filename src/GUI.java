@@ -12,9 +12,9 @@ import java.util.List;
 
 
 public class GUI {
-    private JButton queryBtn = new JButton("查询");
-    private JButton refreshBtn = new JButton("重置");
-    private JButton outputBtn = new JButton("导出");
+    private JButton queryBtn = new JButton("Query");
+    private JButton refreshBtn = new JButton("Reset");
+    private JButton outputBtn = new JButton("Export");
     private List<QueryPanel> queryPanelList;
     private boolean canQuery = false;
     List<TextPanel> list;

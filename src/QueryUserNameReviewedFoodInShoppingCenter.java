@@ -24,7 +24,7 @@ public class QueryUserNameReviewedFoodInShoppingCenter extends Query {
      * !!!important: init the query statement with a prepareStatement class to prevent injection attack
      */
     public QueryUserNameReviewedFoodInShoppingCenter() {
-        String options[] = { "查询类别-User", "查询分类-Review", "Range-Date"
+        String options[] = { "SearchCategory-User", "查询分类-Review", "Range-Date"
         , "BusinessType-Food", "LocationType-Shopping Center" };
         this.options = options;
         String inputTiles[] = { "Starting Date = ", "EndDate = "};
