@@ -36,7 +36,7 @@ public class Query2b extends Query {
      * !!!important: init the query statement with a prepareStatement class to prevent injection attack
      */
     public Query2b() {
-        String options[] = { "SearchCategory-business", "BusinessType-TypeShopping", "Specific - have more than half receieved ratings hihger than 3 " };
+        String options[] = { "SearchCategory-business", "QueryType-BusinessType", "BusinessType-TypeShopping", "Specific - have more than half receieved ratings hihger than 3 " };
         this.options = options;
         String inputTiles[] = { "ZipCode = "};
         this.userInputTitles = inputTiles;
