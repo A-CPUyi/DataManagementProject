@@ -12,12 +12,6 @@ CREATE TABLE friends_with (
    CONSTRAINT fk__friends_with__user1 FOREIGN KEY (user_id1) REFERENCES user (user_id),
    CONSTRAINT fk__friends_with__user2 FOREIGN KEY (user_id2) REFERENCES user (user_id)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-CREATE TABLE postal_code (
-   postal_code varchar(20) NOT NULL,
-   city text,
-   state varchar(6) DEFAULT NULL,
-   PRIMARY KEY (postal_code)
- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE business_chain (
    business_name varchar(100) NOT NULL,
    is_chain bit(1) DEFAULT NULL,
@@ -28,13 +22,13 @@ CREATE TABLE business_location (
    address varchar(200) NOT NULL,
    postal_code varchar(20) NOT NULL,
    name varchar(100) NOT NULL,
-   PRIMARY KEY (address,postal_code,name),
+   city varchar(60) NOT NULL,
+   state varchar(6) NOT NULL,
+   PRIMARY KEY (address,postal_code,name,city,state),
    UNIQUE KEY id_UNIQUE (id),
-   KEY fk_postal_code_idx (postal_code),
    KEY id_idx (id),
    KEY fk__business_location__business_chain_idx (name),
    CONSTRAINT fk__business_location__business_chain FOREIGN KEY (name) REFERENCES business_chain (business_name),
-   CONSTRAINT fk__business_location__postal_code FOREIGN KEY (postal_code) REFERENCES postal_code (postal_code)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE business (
   id char(22) NOT NULL,
