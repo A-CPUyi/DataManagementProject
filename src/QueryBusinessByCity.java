@@ -9,9 +9,9 @@ import java.util.List;
 public class QueryBusinessByCity extends Query {
 
     // java dose not support multi-line string?
-    String queryStmt = "SELECT business_name, City"
-            + " from project1_main.business"
-            + " where business_location.City = ? group by business.business_name;";
+    String queryStmt = "SELECT name, City"
+            + " from project1_main.businessView"
+            + " where business_location.City = ? group by businessView.name;";
 
     String resultColumnNames[] = {"business_name"};
 
@@ -47,7 +47,7 @@ public class QueryBusinessByCity extends Query {
         List<String[]> rows = new ArrayList<String[]>();
         while(rawResults.next()){
             String tempRow[] = new String[resultColumnNames.length];
-            tempRow[0] = rawResults.getString(resultColumnNames[0]);
+            tempRow[0] = rawResults.getString(1);
             rows.add(tempRow);
         }
         return rows;

@@ -10,11 +10,11 @@ public class QueryCompareBeautyChainedRatingInCity extends Query {
 
     // java dose not support multi-line string?
     String queryStmt = "select business_chain.is_chain, avg(review.stars)" +
-    " from business_location, beauty, business, business_chain, review" +
+    " from business_location, beauty, businessView, business_chain, review" +
     " where business_location.city = ? " +
     " and beauty.id = business_location.id" +
-    " and beauty.id = business.id" +
-    " and business.business_name = business_chain.business_name" +
+    " and beauty.id = businessView.id" +
+    " and businessView.name = business_chain.business_name" +
     " and business_location.id = review.business_id" +
     " group by business_chain.is_chain";
 

@@ -9,7 +9,7 @@ import java.util.List;
 public class Query2c extends Query {
 
     // java dose not support multi-line string?
-    String queryStmt =  "select business.business_name, goodReview.count, badReview.count from business," 
+    String queryStmt =  "select businessView.business_name, goodReview.count, badReview.count from businessView," 
     		+ " (select review.business_id b_id, count(review.business_id) count from review,"
             + "  (select business_location.id as b_id"
             + " from business_location, beauty"
@@ -28,7 +28,7 @@ public class Query2c extends Query {
             + " group by review.business_id) as badReview"
             + " where goodReview.b_id = badReview.b_id"
             + " and (goodReview.count - badReview.count) > 0"
-            + " and business.id = goodReview.b_id;";
+            + " and businessView.id = goodReview.b_id;";
 
     String resultColumnNames[] = {"business_name"};
 
@@ -65,7 +65,7 @@ public class Query2c extends Query {
         List<String[]> rows = new ArrayList<String[]>();
         while(rawResults.next()){
             String tempRow[] = new String[resultColumnNames.length];
-            tempRow[0] = rawResults.getString(resultColumnNames[0]);
+            tempRow[0] = rawResults.getString(1);
             rows.add(tempRow);
         }
         return rows;

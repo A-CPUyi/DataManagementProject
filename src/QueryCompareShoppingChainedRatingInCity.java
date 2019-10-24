@@ -10,11 +10,11 @@ public class QueryCompareShoppingChainedRatingInCity extends Query {
 
     // java dose not support multi-line string?
     String queryStmt = "select business_chain.is_chain, avg(review.stars)" +
-    " from business_location, shopping, business, business_chain, review" +
+    " from business_location, shopping, businessView, business_chain, review" +
     " where business_location.city = ? " +
     " and shopping.id = business_location.id" +
-    " and shopping.id = business.id" +
-    " and business.business_name = business_chain.business_name" +
+    " and shopping.id = businessView.id" +
+    " and businessView.name = business_chain.business_name" +
     " and business_location.id = review.business_id" +
     " group by business_chain.is_chain";
 
@@ -26,7 +26,7 @@ public class QueryCompareShoppingChainedRatingInCity extends Query {
     public QueryCompareShoppingChainedRatingInCity() {
         String options[] = { "SearchCategory-Compare Review", "比较类别-Chained", "经营类别-Shopping", "比较区域-城市" };
         this.options = options;
-        String inputTiles[] = { "城市 = " };
+        String inputTiles[] = { "City = " };
         this.userInputTitles = inputTiles;
         try {
             this.stmt = Utility.getConnection().prepareStatement(queryStmt);

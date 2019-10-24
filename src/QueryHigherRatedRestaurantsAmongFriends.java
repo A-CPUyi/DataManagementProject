@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class QueryHigherRatedRestaurantsAmongFriends extends Query{
     String queryStmt =
-        "select business.business_name,highRating.num, lowRating.num from business," +
+        "select businessView.name,highRating.num, lowRating.num from businessView," +
             " (select basic.b_id b_id, count(basic.stars) num from" +
                 " (select reviewed.b_id b_id, reviewed.stars stars from" +
                     " (select friends_with.user_id2 u_id from friends_with where friends_with.user_id1 = ?) as friend,"+
@@ -31,7 +31,7 @@ public class QueryHigherRatedRestaurantsAmongFriends extends Query{
                 " group by basic.b_id) as lowRating" +
         " where highRating.b_id = lowRating.b_id" +
         " and highRating.num > lowRating.num" +
-        " and business.id = highRating.b_id";
+        " and businessView.id = highRating.b_id";
 
     String resultColumnNames[] = {"business_name"};
 
@@ -68,7 +68,7 @@ public class QueryHigherRatedRestaurantsAmongFriends extends Query{
         List<String[]> rows = new ArrayList<String[]>();
         while(rawResults.next()){
             String tempRow[] = new String[resultColumnNames.length];
-            tempRow[0] = rawResults.getString(resultColumnNames[0]);
+            tempRow[0] = rawResults.getString(1);
             rows.add(tempRow);
         }
         return rows;

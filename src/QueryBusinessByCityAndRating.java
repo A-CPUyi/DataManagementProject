@@ -9,9 +9,9 @@ import java.util.List;
 public class QueryBusinessByCityAndRating extends Query {
 
     // java dose not support multi-line string?
-    String queryStmt = "select business_name, rating from (" + " SELECT business_name, AVG(review.stars) as rating"
-            + " FROM project1_main.review, project1_main.business" + " where business.id = review.business_id and"
-            + " business_location.City = ? group by business.business_name) as temp" + " where rating > ? ;";
+    String queryStmt = "select businessView.name, rating from (" + " SELECT businessView.name, AVG(review.stars) as rating"
+            + " FROM project1_main.review, project1_main.business" + " where businessView.id = review.business_id and"
+            + " business_location.City = ? group by businessView.name) as temp" + " where rating > ? ;";
 
     String resultColumnNames[] = {"business_name", "rating"};
 
@@ -21,7 +21,7 @@ public class QueryBusinessByCityAndRating extends Query {
     public QueryBusinessByCityAndRating() {
         String options[] = { "SearchCategory-business", "查询分类-city", "optionLevel2-rating > " };
         this.options = options;
-        String inputTiles[] = { "城市 = ", "评分 > " };
+        String inputTiles[] = { "City = ", "Rating > " };
         this.userInputTitles = inputTiles;
         try {
             this.stmt = Utility.getConnection().prepareStatement(queryStmt);
@@ -48,7 +48,7 @@ public class QueryBusinessByCityAndRating extends Query {
         List<String[]> rows = new ArrayList<String[]>();
         while(rawResults.next()){
             String tempRow[] = new String[resultColumnNames.length];
-            tempRow[0] = rawResults.getString(resultColumnNames[0]);
+            tempRow[0] = rawResults.getString(1);
             tempRow[1] = "" + rawResults.getFloat(resultColumnNames[1]);//float to string
             rows.add(tempRow);
         }
