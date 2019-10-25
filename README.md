@@ -30,9 +30,6 @@ javac -classpath "src\;lib\mysql-connector-java-8.0.17.jar" -encoding "UTF-8" .\
 - To run the code  
 java -classpath "src;lib\mysql-connector-java-8.0.17.jar" MyDbUserInterface 
 
-## GUI Features
-*someone plz write this part
-
 ## Scripts for loading and normalizing the dataset
 The scripts for loading the dataset into mysql server is located under `./MySQLscript`  
 These scripts simply takes the .json document in the database and turn it into a proper table
