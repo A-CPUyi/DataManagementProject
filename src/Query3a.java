@@ -9,7 +9,7 @@ import java.util.List;
 public class Query3a extends Query {
 
     // java dose not support multi-line string?
-    String queryStmt = "select business_name from businessView, business_location, business_checkin, food" 
+    String queryStmt = "select businessView.name from businessView, business_location, business_checkin, food" 
     		+ " where businessView.id = food.id"
             + " and businessView.id = business_location.id"
             + " and businessView.id = business_checkin.id"

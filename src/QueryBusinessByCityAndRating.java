@@ -9,9 +9,9 @@ import java.util.List;
 public class QueryBusinessByCityAndRating extends Query {
 
     // java dose not support multi-line string?
-    String queryStmt = "select businessView.name, rating from (" + " SELECT businessView.name, AVG(review.stars) as rating"
-            + " FROM project1_main.review, project1_main.business" + " where businessView.id = review.business_id and"
-            + " business_location.City = ? group by businessView.name) as temp" + " where rating > ? ;";
+    String queryStmt = "select name, rating from (" + " SELECT businessView.name name, AVG(review.stars) as rating"
+            + " FROM project1_main.review, business_location, project1_main.businessView" + " where businessView.id = review.business_id and"
+            + " business_location.City = ? and business_location.id = businessView.id group by businessView.name) as temp" + " where rating > ? ;";
 
     String resultColumnNames[] = {"business_name", "rating"};
 
@@ -19,7 +19,7 @@ public class QueryBusinessByCityAndRating extends Query {
      * !!!important: init the query statement with a prepareStatement class to prevent injection attack
      */
     public QueryBusinessByCityAndRating() {
-        String options[] = { "SearchCategory-business", "查询分类-city", "optionLevel2-rating > " };
+        String options[] = { "SearchCategory-business", "QueryClassification-city", "optionLevel2-rating > " };
         this.options = options;
         String inputTiles[] = { "City = ", "Rating > " };
         this.userInputTitles = inputTiles;
